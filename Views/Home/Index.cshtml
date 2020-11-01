@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Person>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+    <h1>Grid</h1>
+    @(Html
+    .Grid(Model)
+    .Build(columns =>
+    {
+        columns.Add(model => model.FirstName).Titled("FirstName");
+        columns.Add(model => model.LastName).Titled("LastName");
+        columns.Add(model => model.Age).Titled("Age");
+    })
+    .Empty("No data found")
+    .Filterable()
+    .Pageable(pager =>
+    {
+        pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 2, "2" }, { 4, "4" } };
+        pager.ShowPageSizes = true;
+        pager.PagesToDisplay = 3;
+        pager.CurrentPage = 2;
+        pager.RowsPerPage = 2;
+    })
+)
+
+
+</div>
